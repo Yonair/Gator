@@ -20,7 +20,7 @@ export function readConfig(): Config {
     return properConfig;
 };
 
-function getConfigFilePath(): string {
+function  getConfigFilePath(): string {
     const fullPath = path.join(os.homedir(), ".gatorconfig.json");
     return fullPath;
 }
@@ -32,7 +32,7 @@ function writeConfig(cfg: Config): void {
     let stringify = JSON.stringify(jsonReady);
     fs.writeFileSync(getConfigFilePath(), stringify);
 }
-function validateConfig(rawConfig: any): Config {
+ function validateConfig(rawConfig: any): Config {
     if (!rawConfig.db_url) {
         throw new Error("Required field 'db_url' not found.")
     };
