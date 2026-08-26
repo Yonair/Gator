@@ -8,6 +8,13 @@
       "when": 1787608889414,
       "tag": "0000_even_bastion",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1787769095984,
+      "tag": "0001_new_tinkerer",
+      "breakpoints": true
     }
   ]
 }
