@@ -1,4 +1,4 @@
-import { resetUsers } from "../lib/db/queries/users";
+import { resetUsers } from "../lib/db/queries/users.js";
 
 export async function handlerReset(cmdName: string, ...args: string[]) {
     await resetUsers();

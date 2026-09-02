@@ -1,28 +1,24 @@
-import { readConfig } from "../config";
-import { createFeed, getFeeds } from "../lib/db/queries/feeds";
-import { getUser, getUserById } from "../lib/db/queries/users";
+import { readConfig } from "../config.js";
+import { createFeedFollow } from "../lib/db/queries/feed-follows.js";
+import { createFeed, getFeeds } from "../lib/db/queries/feeds.js";
+import { getUser, getUserById } from "../lib/db/queries/users.js";
 import { Feed, feeds, User } from "../lib/db/schema.js";
 
-export async function handlerAddFeed(cmdName: string, ...args: string[]) {
+export async function handlerAddFeed(cmdName: string, user: User, ...args: string[]) {
     if (args.length !== 2) {
         throw new Error("Expected name and url")
     };
-    const config = readConfig();
-    const username = config.currentUserName;
-    if (typeof username !== "string") {
-        throw new Error("Expected username");
-    }
-    const user = await getUser(username);
-     if (!user) {
-        throw new Error("Expected username");
-    }
     const name = args[0];
     const url = args[1];
     const feed = await createFeed(name, url, user.id);
     if (!feed) {
         throw new Error("Expected feed");
     };
-    printFeed(feed, user);
+    const follow = await createFeedFollow(user.id, feed.id);
+    if (!follow) {
+        throw new Error("Expected follow");
+    };
+    console.log(` ${follow.feed.name} (${follow.user.name}) has been added and followed successfully`);
 }
 
 export async function handlerFeeds(cmdName: string, ...args: string[]) {

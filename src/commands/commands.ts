@@ -1,7 +1,14 @@
-import {setUser, readConfig} from "../config"
-import { createUser, getUser, getUsers } from "../lib/db/queries/users";
+import {setUser, readConfig} from "../config.js";
+import { createUser, getUser, getUsers } from "../lib/db/queries/users.js";
+import { User } from "../lib/db/schema.js";
 
 export type CommandHandler = (cmdName: string, ...args: string[]) => Promise<void>;
+
+export type UserCommandHandler = (
+  cmdName: string,
+  user: User,
+  ...args: string[]
+) => Promise<void>;
 
 export async function handlerLogin(cmdName: string, ...args: string[]) {
     if (args.length === 0) {

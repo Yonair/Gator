@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { db } from "..";
-import { users } from "../schema";
+import { users } from "../schema.js";
 
 
 export async function createUser(name: string) {
@@ -9,21 +9,30 @@ export async function createUser(name: string) {
 }
 
 export async function getUser(name: string) {
-    const [result] = await db.select().from(users).where(eq(users.name, name));
+    const [result] = await db
+    .select()
+    .from(users)
+    .where(eq(users.name, name));
     return result;
 }
 
 export async function resetUsers() {
-    const result = await db.delete(users);
+    const result = await db
+    .delete(users);
     return result;
 }
 
 export async function getUsers() {
-    const result = await db.select().from(users);
+    const result = await db
+    .select()
+    .from(users);
     return result;
 }
 
 export async function getUserById(id: string) {
-    const [result] = await db.select().from(users).where(eq(users.id, id));
+    const [result] = await db
+    .select()
+    .from(users)
+    .where(eq(users.id, id));
     return result;
 }
